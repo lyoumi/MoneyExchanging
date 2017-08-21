@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
+   <children>
+      <Text layoutX="114.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD:">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="usdBuy" layoutX="197.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="usdSell" layoutX="282.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="197.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BUY">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="278.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELL">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="114.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RUB:">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="rubBuy" layoutX="197.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="rubSell" layoutX="282.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="eurBuy" layoutX="197.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="114.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EUR:">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="eurSell" layoutX="282.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USD">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Button mnemonicParsing="false" onAction="#update" text="Update" />
+      <Button layoutX="499.0" layoutY="239.0" mnemonicParsing="false" onAction="#convert" text="Convert" />
+      <TextField fx:id="moneyField" layoutX="34.0" layoutY="239.0" prefHeight="25.0" prefWidth="101.0" />
+      <ComboBox fx:id="comboBoxFrom" layoutX="225.0" layoutY="239.0" prefHeight="25.0" prefWidth="88.0" />
+      <ComboBox fx:id="comboBoxTo" layoutX="368.0" layoutY="239.0" prefHeight="25.0" prefWidth="88.0" />
+      <Text layoutX="157.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="from">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="336.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="result" layoutX="234.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="result">
+         <font>
+            <Font name="Ubuntu" size="30.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

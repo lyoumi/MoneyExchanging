@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Monetary operations.iml" filepath="$PROJECT_DIR$/.idea/modules/Monetary operations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Monetary_operations.iml" filepath="$PROJECT_DIR$/.idea/modules/Monetary_operations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Monetary_operations_main.iml" filepath="$PROJECT_DIR$/.idea/modules/Monetary_operations_main.iml" group="Monetary_operations" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Monetary_operations_test.iml" filepath="$PROJECT_DIR$/.idea/modules/Monetary_operations_test.iml" group="Monetary_operations" />
+    </modules>
+  </component>
+</project>
