@@ -101,59 +101,58 @@ public class Controller {
             eurBuy.setText(money.get("EUR").get("buy").toString());
             eurSell.setText(money.get("EUR").get("sell").toString());
         });
-
-        System.out.println(money);
     }
 
     public void convert(){
         if (!comboBoxFrom.getValue().equals("...") && !comboBoxTo.getValue().equals("...") && !comboBoxFrom.getValue().equals(comboBoxTo.getValue())){
-            String value = comboBoxFrom.getValue().toString();
-            if (comboBoxFrom.getValue().equals("UAH")) {
-                if (comboBoxTo.getValue().equals("USD")) {
-                    if (isDigit(moneyField.getText())) {
-                        Money dollar = Dollar.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
-                        if (dollar.canExchanging())
-                            Platform.runLater(() -> result.setText(String.valueOf(decimalFormat.format(dollar.exchange(1/Double.valueOf(usdBuy.getText()))))));
-                    }
-                } else if (comboBoxTo.getValue().equals("RUB")){
-                    if (isDigit(moneyField.getText())) {
-                        Money ruble = Ruble.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
-                        if (ruble.canExchanging())
-                            Platform.runLater(() -> result.setText(String.valueOf(decimalFormat.format(ruble.exchange(1/Double.valueOf(rubBuy.getText()))))));
-                    }
+            switch (comboBoxFrom.getValue().toString()){
+                case "UAH": {
+                    if (isDigit(moneyField.getText()))
+                        switch (comboBoxTo.getValue().toString()){
+                            case "USD":
+                                updateResult(1/Double.valueOf(usdBuy.getText()), Dollar.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
+                                break;
+                            case "RUB":
+                                updateResult(1/Double.valueOf(rubBuy.getText()), Ruble.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
+                                break;
+                        }
+                    break;
                 }
-            } else if (comboBoxFrom.getValue().equals("RUB")){
-                if (comboBoxTo.getValue().equals("USD")) {
-                    if (isDigit(moneyField.getText())) {
-                        Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
-                        double temp = hryvnia.exchange(Double.valueOf(rubSell.getText()));
-                        Money dollar = Dollar.moneyFactory.createNewMoney(temp, Quality.Normal);
-                        Platform.runLater(() -> result.setText(String.valueOf(decimalFormat.format(dollar.exchange(1/Double.valueOf(usdBuy.getText()))))));
-                    }
-                } else if (comboBoxTo.getValue().equals("UAH")){
-                    if (isDigit(moneyField.getText())) {
-                        Money ruble = Ruble.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
-                        if (ruble.canExchanging())
-                            Platform.runLater(() -> result.setText(String.valueOf(decimalFormat.format(ruble.exchange(Double.valueOf(rubSell.getText()))))));
-                    }
+                case "RUB": {
+                    if (isDigit(moneyField.getText()))
+                        switch (comboBoxTo.getValue().toString()){
+                            case "USD":
+                                Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
+                                double temp = hryvnia.exchange(Double.valueOf(rubSell.getText()));
+                                updateResult(1/Double.valueOf(usdBuy.getText()), Dollar.moneyFactory.createNewMoney(temp, Quality.Normal));
+                                break;
+                            case "UAH":
+                                updateResult(Double.valueOf(rubSell.getText()), Ruble.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
+                                break;
+                        }
+                    break;
                 }
-            } else if (comboBoxFrom.getValue().equals("USD")){
-                if (comboBoxTo.getValue().equals("RUB")) {
-                    if (isDigit(moneyField.getText())) {
-                        Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
-                        double temp = hryvnia.exchange(Double.valueOf(usdSell.getText()));
-                        Money dollar = Ruble.moneyFactory.createNewMoney(temp, Quality.Normal);
-                        Platform.runLater(() -> result.setText(String.valueOf(decimalFormat.format(dollar.exchange(1/Double.valueOf(rubBuy.getText()))))));
-                    }
-                } else if (comboBoxTo.getValue().equals("UAH")){
-                    if (isDigit(moneyField.getText())) {
-                        Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
-                        if (hryvnia.canExchanging())
-                            Platform.runLater(() -> result.setText(String.valueOf(decimalFormat.format(hryvnia.exchange(Double.valueOf(usdSell.getText()))))));
-                    }
+                case "USD": {
+                    if (isDigit(moneyField.getText()))
+                        switch (comboBoxTo.getValue().toString()){
+                            case "RUB":
+                                Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
+                                double temp = hryvnia.exchange(Double.valueOf(usdSell.getText()));
+                                updateResult(1/Double.valueOf(rubBuy.getText()), Ruble.moneyFactory.createNewMoney(temp, Quality.Normal));
+                                break;
+                            case "UAH":
+                                updateResult(Double.valueOf(usdSell.getText()), Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
+                                break;
+                        }
+                    break;
                 }
             }
         }
+    }
+
+    private void updateResult(double course, Money money){
+        if (money.canExchanging())
+            Platform.runLater(() -> result.setText(String.valueOf(decimalFormat.format(money.exchange(course)))));
     }
 
     private boolean isDigit(String s){
@@ -163,7 +162,6 @@ public class Controller {
         } catch (Exception e){
             Stage dialog = new Stage();
             dialog.initStyle(StageStyle.UTILITY);
-
             Text text = (new Text(40, 40, "Not correct value...."));
             text.setStyle("-fx-text-fill: #3c7fb1");
             text.setTextAlignment(TextAlignment.CENTER);
