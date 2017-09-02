@@ -3,6 +3,7 @@ package Controller;
 import Model.Money;
 import Model.Quality;
 import Model.moneyclasses.Dollar;
+import Model.moneyclasses.Euro;
 import Model.moneyclasses.Hryvnia;
 import Model.moneyclasses.Ruble;
 import javafx.application.Platform;
@@ -39,7 +40,7 @@ public class Controller {
     private DecimalFormat decimalFormat = new DecimalFormat("#######.##");
 
     private ObservableList<String> countryList = FXCollections.observableArrayList(                                     //лист значений для комбо-бокса
-            "UAH", "USD", "RUB"
+            "UAH", "USD", "EUR", "RUB"
     );
 
     @FXML
@@ -115,17 +116,27 @@ public class Controller {
                             case "RUB":
                                 updateResult(1/Double.valueOf(rubBuy.getText()), Ruble.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
                                 break;
+                            case "EUR":
+                                updateResult(1/Double.valueOf(eurBuy.getText()), Euro.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
+                                break;
                         }
                     break;
                 }
                 case "RUB": {
                     if (isDigit(moneyField.getText()))
                         switch (comboBoxTo.getValue().toString()){
-                            case "USD":
+                            case "USD":{
                                 Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
                                 double temp = hryvnia.exchange(Double.valueOf(rubSell.getText()));
                                 updateResult(1/Double.valueOf(usdBuy.getText()), Dollar.moneyFactory.createNewMoney(temp, Quality.Normal));
                                 break;
+                            }
+                            case "EUR":{
+                                Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
+                                double temp = hryvnia.exchange(Double.valueOf(rubSell.getText()));
+                                updateResult(1/Double.valueOf(eurBuy.getText()), Euro.moneyFactory.createNewMoney(temp, Quality.Normal));
+                                break;
+                            }
                             case "UAH":
                                 updateResult(Double.valueOf(rubSell.getText()), Ruble.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
                                 break;
@@ -135,16 +146,43 @@ public class Controller {
                 case "USD": {
                     if (isDigit(moneyField.getText()))
                         switch (comboBoxTo.getValue().toString()){
-                            case "RUB":
+                            case "RUB":{
                                 Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
                                 double temp = hryvnia.exchange(Double.valueOf(usdSell.getText()));
                                 updateResult(1/Double.valueOf(rubBuy.getText()), Ruble.moneyFactory.createNewMoney(temp, Quality.Normal));
                                 break;
+                            }
+                            case "EUR":{
+                                Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
+                                double temp = hryvnia.exchange(Double.valueOf(usdSell.getText()));
+                                updateResult(1/Double.valueOf(eurBuy.getText()), Euro.moneyFactory.createNewMoney(temp, Quality.Normal));
+                                break;
+                            }
                             case "UAH":
                                 updateResult(Double.valueOf(usdSell.getText()), Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
                                 break;
                         }
                     break;
+                }
+                case "EUR":{
+                    if (isDigit(moneyField.getText()))
+                        switch (comboBoxTo.getValue().toString()){
+                            case "RUB":{
+                                Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
+                                double temp = hryvnia.exchange(Double.valueOf(eurSell.getText()));
+                                updateResult(1/Double.valueOf(eurBuy.getText()), Ruble.moneyFactory.createNewMoney(temp, Quality.Normal));
+                                break;
+                            }
+                            case "USD":{
+                                Money hryvnia = Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal);
+                                double temp = hryvnia.exchange(Double.valueOf(eurSell.getText()));
+                                updateResult(1/Double.valueOf(eurBuy.getText()), Dollar.moneyFactory.createNewMoney(temp, Quality.Normal));
+                                break;
+                            }
+                            case "UAH":
+                                updateResult(Double.valueOf(eurSell.getText()), Hryvnia.moneyFactory.createNewMoney(Double.valueOf(moneyField.getText()), Quality.Normal));
+                                break;
+                        }
                 }
             }
         }
